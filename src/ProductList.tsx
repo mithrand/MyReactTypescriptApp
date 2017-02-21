@@ -3,26 +3,27 @@
  */
 import * as React from 'react';
 import Product from './Product';
-import {Datos, IProduct} from './Seed';
-
-const productos = Datos.getProducts();
+import {Datos} from './Seed';
 
 class ProductList extends  React.Component<{}, {}> {
-
-    private product: IProduct = productos[0];
 
     public render() {
         return (
             <div className="ui unstackable items">
-               <Product
-                   id={this.product.id}
-                   title={this.product.title}
-                   description={this.product.description}
-                   url={this.product.url}
-                   votes={this.product.votes}
-                   submitterAvatarUrl={this.product.submitterAvatarUrl}
-                   productImageUrl={this.product.productImageUrl}
-               />
+            {
+                // las llaves permiten ejecutar javascript dentro de codigo JSX
+                Datos.getProducts().map( product =>
+                    <Product
+                        id={product.id}
+                        title={product.title}
+                        description={product.description}
+                        url={product.url}
+                        votes={product.votes}
+                        submitterAvatarUrl={product.submitterAvatarUrl}
+                        productImageUrl={product.productImageUrl}
+                    />
+                    )
+            }
             </div>
         );
     }
